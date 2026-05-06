@@ -35,7 +35,7 @@ public class Main {
                     system = false;
                     break;
                 default:
-                    throw new AssertionError();
+                    System.out.println("Opcion no valida.");
             }
         }
     }

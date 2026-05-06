@@ -7,7 +7,7 @@ import org.example.model.ProductModel;
 
 public class ProductView {
 
-    private Scanner scanner;
+ private final Scanner scanner;
 
     public ProductView(){
         this.scanner = new Scanner(System.in);
@@ -24,29 +24,93 @@ public class ProductView {
                 3. Crear nuevo producto.
                 4. Actualizar un producto.
                 5. Eliminar un producto.
-                6.Salir
+                6. Salir
                 =====================================================
                 """);
-                int opt = getInt(">");
-
-
-            return opt;
+        return getInt(">");
     }
 
-    public int getInt(String message){
-        try {
+    public int getInt(String message) {
+        while (true) {
             System.out.println(message);
-            return scanner.nextInt();
-        } catch (Exception e) {
-                // TODO: handle exception
-            System.out.println("Error" + e.getMessage());
+            String input = scanner.nextLine().trim();
+
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un numero valido.");
+            }
         }
-        return 0;
     }
+
+
+    public double getDouble(String message) {
+        while (true) {
+            System.out.println(message);
+            String input = scanner.nextLine().trim();
+
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un precio valido.");
+            }
+        }
+    }
+
+    public int getPositiveInt(String message) {
+        while (true) {
+            int value = getInt(message);
+
+            if (value > 0) {
+                return value;
+            }
+
+            System.out.println("El valor debe ser mayor que cero.");
+        }
+    }
+
+    public int getNonNegativeInt(String message) {
+        while (true) {
+            int value = getInt(message);
+
+            if (value >= 0) {
+                return value;
+            }
+
+            System.out.println("El valor no puede ser negativo.");
+        }
+    }
+
+    public double getPositiveDouble(String message) {
+        while (true) {
+            double value = getDouble(message);
+
+            if (value > 0) {
+                return value;
+            }
+
+            System.out.println("El valor debe ser mayor que cero.");
+        }
+    }
+
+    public String getRequiredText(String message) {
+        while (true) {
+            System.out.println(message);
+            String input = scanner.nextLine().trim();
+
+            if (!input.isEmpty()) {
+                return input;
+            }
+
+            System.out.println("El texto no puede estar vacio.");
+        }
+    }
+
 
     public void showProducts(List<ProductModel> data){
         if (data.isEmpty()) {
             System.out.println("\n No hay productos registrados.\n");
+            return;
         }
         System.out.println("=================================================");
         System.out.println("\n Productos registrados.");
@@ -63,6 +127,7 @@ public class ProductView {
     public void showProduct(ProductModel product){
         if (product == null) {
             System.out.println("\n No hay producto registrado con ese id.\n");
+            return;
         }
         System.out.println("=================================================");
         System.out.println("Id: " + product.getId());
@@ -74,14 +139,9 @@ public class ProductView {
 
     public ProductModel getProductData(String message){
         System.out.println(message);
-        System.out.println("Nombre: ");
-        String name = scanner.next();
-        System.out.println("Precio: ");
-        Double price = scanner.nextDouble();
-        System.out.println("Stock: ");
-        int stock = scanner.nextInt();
-
-        scanner.nextLine();
+        String name = getRequiredText("Nombre:");
+        double price = getPositiveDouble("Precio:");
+        int stock = getNonNegativeInt("Stock:");
 
         ProductModel product = new ProductModel();
         product.setName(name);
@@ -91,37 +151,17 @@ public class ProductView {
         return product;
     }
 
-    public ProductModel update(){
-
+    public int getUpdateOption(){
         System.out.println("""
                 ¿Que deseas actualizar, stock o precio?
-                1. stock.
-                2. precio.
+                1. precio.
+                2. stock.
                 3. salir.
                 """);
-        int ints = getInt(">");
-        ProductModel prd = new ProductModel();
+        return getInt(">");
+    }
 
-        switch (ints) {
-            case 1:
-                System.out.println("Precio: ");
-                double price = scanner.nextDouble();
-                scanner.nextLine();
-                prd.setPrice(price);
-                return prd;
-
-            case 2:
-                System.out.println("Stock: ");
-                int stock = scanner.nextInt();
-                scanner.nextLine();
-                prd.setStock(stock);
-                return prd;
-            
-            case 3:
-                break;
-                default:
-                    throw new AssertionError();
-                }
-        return prd;
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 }

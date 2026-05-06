@@ -22,7 +22,7 @@ public class ProductRepository {
     }
 
     public ProductModel getProductById(int id){
-        if (this.productList.isEmpty() || productList.size() < id) {
+        if (id <= 0 || this.productList.isEmpty()) {
             return null;
         }
 
@@ -38,19 +38,28 @@ public class ProductRepository {
         if (productData == null) {
             return false;
         }
-        productData.setId(productList.size() + 1);
+        productData.setId(getNextProductId());
         this.productList.add(productData);
         return true;
     }
 
-    public boolean updateProduct(int productId, ProductModel newProductData){
+    public boolean updateProductPrice(int productId, double price){
         ProductModel product = this.getProductById(productId);
-        if (product == null) {
+        if (product == null || price <= 0) {
             return false;
         }
 
-        product.setPrice(newProductData.getPrice());
-        product.setStock(newProductData.getStock());
+        product.setPrice(price);
+        return true;
+    }
+
+    public boolean updateProductStock(int productId, int stock){
+        ProductModel product = this.getProductById(productId);
+        if (product == null || stock < 0) {
+            return false;
+        }
+
+        product.setStock(stock);
         return true;
     }
     
@@ -62,5 +71,17 @@ public class ProductRepository {
 
         this.productList.remove(product);
         return true;
+    }
+
+    private int getNextProductId() {
+        int maxId = 0;
+
+        for (ProductModel product : productList) {
+            if (product.getId() > maxId) {
+                maxId = product.getId();
+            }
+        }
+
+        return maxId + 1;
     }
 }
