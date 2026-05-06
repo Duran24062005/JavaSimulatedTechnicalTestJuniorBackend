@@ -38,6 +38,7 @@ public class ProductRepository {
         if (productData == null) {
             return false;
         }
+        productData.setId(productList.size() + 1);
         this.productList.add(productData);
         return true;
     }
@@ -48,7 +49,6 @@ public class ProductRepository {
             return false;
         }
 
-        product.setName(newProductData.getName());
         product.setPrice(newProductData.getPrice());
         product.setStock(newProductData.getStock());
         return true;

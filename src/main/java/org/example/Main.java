@@ -2,28 +2,41 @@ package org.example;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 
-import org.example.model.ProductModel;
 import org.example.repository.ProductRepository;
+import org.example.service.ProductService;
+import org.example.view.ProductView;
 
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         ProductRepository repo = new ProductRepository();
+        ProductView view = new ProductView();
+        ProductService service = new ProductService(repo, view);
 
-        // System.out.println(repo.getProducts());
-
-        ProductModel coche = new ProductModel();
-        coche.setId(1);
-        coche.setName("Mazda");
-        coche.setPrice(1200.0);
-        coche.setStock(5);
-
-        repo.createNewProduct(coche);
-
-        for (ProductModel data : repo.getProducts()) {
-            System.out.println(data.getName());
+        boolean system = true;
+        while (system) {
+            switch (view.menu()) {
+                case 1:
+                    service.showProducts();
+                    break;
+                case 2:
+                    service.showProduct();
+                    break;
+                case 3:
+                    service.createProduct();
+                    break;
+                case 4:
+                    service.updateProduct();
+                    break;
+                case 5:
+                    service.deleteProduct();
+                    break;
+                case 6:
+                    system = false;
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         }
-
-        System.out.println(repo.getProductById(9).getStock());
     }
 }
