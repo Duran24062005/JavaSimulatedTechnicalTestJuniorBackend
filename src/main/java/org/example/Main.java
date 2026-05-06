@@ -23,5 +23,7 @@ public class Main {
         for (ProductModel data : repo.getProducts()) {
             System.out.println(data.getName());
         }
+
+        System.out.println(repo.getProductById(9).getStock());
     }
 }
