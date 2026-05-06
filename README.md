@@ -22,10 +22,15 @@ data/
 └── products.csv
 
 docs/
+├── Prueba Técnica Simulada — Java Backend Junior (Entrevista Laboral).pdf
 ├── prd-code-quality-validations.md
 ├── prd-seed-data-loading.md
 └── system-artifsct.md
 ```
+
+## Enunciado base
+
+El archivo [Prueba Técnica Simulada — Java Backend Junior (Entrevista Laboral).pdf](docs/Prueba%20T%C3%A9cnica%20Simulada%20%E2%80%94%20Java%20Backend%20Junior%20%28Entrevista%20Laboral%29.pdf) contiene el enunciado original del ejercicio. La aplicación implementa el CRUD de productos por consola solicitado allí, manteniendo la solución sin frameworks ni base de datos.
 
 ## Ejecución
 
@@ -96,6 +101,7 @@ Reglas del archivo:
 
 ## Documentación técnica
 
+- [Enunciado de la prueba técnica](docs/Prueba%20T%C3%A9cnica%20Simulada%20%E2%80%94%20Java%20Backend%20Junior%20%28Entrevista%20Laboral%29.pdf)
 - [System artifact](docs/system-artifsct.md)
 - [PRD de validaciones y calidad](docs/prd-code-quality-validations.md)
 - [PRD de carga de datos de prueba](docs/prd-seed-data-loading.md)
